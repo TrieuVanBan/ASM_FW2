@@ -6,8 +6,11 @@ import CategoryEdit from "./components/Category-Edit";
 import Product from "./components/product";
 import ProductAdd from "./components/product-add";
 import ProductEdit from "./components/product-edit";
+import Signin from "./components/Signin";
+import Signup from "./components/Signup";
 import LayoutAdmin from "./layouts/LayoutAdmin";
 import LayoutWebsite from "./layouts/LayoutWebsite";
+import Detail from "./page/detail";
 import Home from "./page/home";
 
 function App() {
@@ -16,7 +19,9 @@ function App() {
       <Routes>
         <Route path="/" element={<LayoutWebsite />}>
           <Route index element={<Home />} />
-          <Route path="about" element={<h1>About Page</h1>} />
+          <Route path="detail/:id" element={<Detail />} />
+          <Route path="/signin" element={<Signin />} />
+          <Route path="/signup" element={<Signup />} />
         </Route>
         <Route path="/admin" element={<LayoutAdmin />}>
           <Route index element={<h1>Dashboard</h1>} />

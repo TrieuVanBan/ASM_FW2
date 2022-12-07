@@ -56,10 +56,9 @@ const Category = () => {
                   </Button>
                 </Popconfirm>
 
-                {/* <Link to={`product/edit/${id}`}>Edit</Link> */}
-                <Link to={``}>
-                  <Button type="primary">Edit</Button>
-                </Link>
+                <Button type="primary" danger>
+                  <Link to={`/admin/categorys/edit/${cat.key}`}>Edit</Link>
+                </Button>
               </>
             );
           }}

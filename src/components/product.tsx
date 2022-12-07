@@ -37,11 +37,22 @@ const Product = () => {
           price: item.price,
           image: item.image,
           description: item.description,
+          categoryId: item.categoryId,
         }))}
       >
         <Column title="STT" dataIndex="index" key="index" />
         <Column title="Name" dataIndex="name" key="name" />
-        <Column title="Price" dataIndex="price" key="price" />
+        <Column
+          title="Price"
+          dataIndex="price"
+          key="price"
+          render={(price) =>
+            price.toLocaleString("vi-VN", {
+              style: "currency",
+              currency: "VND",
+            })
+          }
+        />
         {
           <Column
             title="Image"
@@ -53,6 +64,7 @@ const Product = () => {
           />
         }
         <Column title="Description" dataIndex="description" key="description" />
+        <Column title="Category" dataIndex="categoryId" key="categoryId" />
         <Column
           title="Action"
           key="action"
@@ -72,9 +84,8 @@ const Product = () => {
                   </Button>
                 </Popconfirm>
 
-                {/* <Link to={`product/edit/${id}`}>Edit</Link> */}
                 <Button type="primary" danger>
-                  Edit
+                  <Link to={`edit/${product.key}`}>Edit</Link>
                 </Button>
               </>
             );

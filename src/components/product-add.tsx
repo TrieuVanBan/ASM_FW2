@@ -1,7 +1,8 @@
 import React from "react";
-import { Button, Form, Input, InputNumber, message } from "antd";
+import { Button, Form, Input, InputNumber, message, Select } from "antd";
 import { useAddProductMutation } from "../services/product";
 import { useNavigate } from "react-router-dom";
+import { useGetCategorysQuery } from "../services/category";
 
 interface IFormInputs {
   name: string;
@@ -23,6 +24,7 @@ const validateMessages = {
 };
 
 const ProductAdd = () => {
+  const { data: getCategorys } = useGetCategorysQuery();
   const [addProduct, { isLoading, error }] = useAddProductMutation();
   const navigate = useNavigate();
 
@@ -31,6 +33,12 @@ const ProductAdd = () => {
     message.success("Thêm sản phẩm thành công");
     navigate(-1);
   };
+
+  // Selec
+  const { Option } = Select;
+  function handleChange(value: any) {
+    console.log(`selected ${value}`);
+  }
 
   return (
     <div>
@@ -43,22 +51,48 @@ const ProductAdd = () => {
         onFinish={onFinish}
         validateMessages={validateMessages}
       >
-        <Form.Item name={["name"]} label="Name" rules={[{ required: true }]}>
+        <Form.Item
+          name={["categoryId"]}
+          label="Danh mục"
+          rules={[{ required: true }]}
+        >
+          <Select
+            defaultValue="Danh mục sản phẩm"
+            style={{ width: 200 }}
+            onChange={handleChange}
+          >
+            {getCategorys &&
+              getCategorys.map((cate, index) => (
+                <Option key={index} value={cate.id}>
+                  {cate.name}
+                </Option>
+              ))}
+          </Select>
+        </Form.Item>
+        <Form.Item
+          name={["name"]}
+          label="Tên sản phẩm"
+          rules={[{ required: true }]}
+        >
           <Input />
         </Form.Item>
-        <Form.Item name={["image"]} label="Image" rules={[{ required: true }]}>
+        <Form.Item
+          name={["image"]}
+          label="Ảnh sản phẩm"
+          rules={[{ required: true }]}
+        >
           <Input />
         </Form.Item>
         <Form.Item
           name={["price"]}
-          label="Price"
+          label="Giá tiền"
           rules={[{ type: "number", required: true }]}
         >
           <InputNumber style={{ width: "30%" }} />
         </Form.Item>
         <Form.Item
           name={["description"]}
-          label="description"
+          label="Mô tả"
           rules={[{ required: true }]}
         >
           <Input.TextArea />
